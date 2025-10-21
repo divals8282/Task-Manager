@@ -23,7 +23,7 @@ export class User {
   lastname: string;
 
   @Column({ unique: true })
-  nickname: string;
+  email: string;
 
   @OneToOne(() => Auth, (auth) => auth.id)
   @JoinColumn()

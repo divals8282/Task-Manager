@@ -14,7 +14,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([]),
     AuthModule,
   ],
   controllers: [AppController],
