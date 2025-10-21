@@ -34,6 +34,8 @@ export class AuthService {
         refreshToken: '',
       });
 
+      await manager.save(newAuth);
+
       const newUser = manager.create(User, {
         email: user.email,
         name: user.name,
@@ -41,7 +43,7 @@ export class AuthService {
         auth: newAuth,
       });
 
-      await manager.save(newAuth);
+      await manager.save(newUser);
 
       return newUser;
     });
