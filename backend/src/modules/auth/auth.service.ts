@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource } from 'typeorm';
 import { User, Auth } from '../../entities';
-import { RegistrationDTO } from './dto/register.dto';
+import { UserDTO } from './dto/user.dto';
 
 import * as bcrypt from 'bcrypt';
 
@@ -24,7 +24,7 @@ export class AuthService {
     return !!existingUser;
   }
 
-  async createUser(user: RegistrationDTO) {
+  async createUser(user: UserDTO) {
     const hashPassword = await bcrypt.hash(user.password, 10);
 
     return await this.dataSource.transaction(async (manager) => {

@@ -1,7 +1,7 @@
 import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { UserDTO } from './dto/user.dto';
 import { LoginDTO } from './dto/login.dto';
-import { RegistrationDTO } from './dto/register.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -9,14 +9,11 @@ export class AuthController {
 
   @Post('login')
   login(@Body() body: LoginDTO) {
-    console.log({
-      body,
-    });
     return true;
   }
 
   @Post('register')
-  async register(@Body() body: RegistrationDTO) {
+  async register(@Body() body: UserDTO) {
     const userExists = await this.authService.checkIfUserExists(body.email);
 
     if (userExists) {

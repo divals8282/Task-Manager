@@ -1,6 +1,9 @@
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsOptional, IsString } from 'class-validator';
 
-export class RegistrationDTO {
+export class UserDTO {
+  @IsOptional()
+  id?: number;
+
   @IsEmail()
   email: string;
 
