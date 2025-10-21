@@ -1,0 +1,62 @@
+services:
+  backend:
+    image: node:22.12.0
+    container_name: backend
+    working_dir: /app
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/app_db
+      - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_INTERVAL=1000
+    volumes:
+      - ./backend:/app           # mount source code
+      - /app/node_modules        # keep container node_modules
+    command: sh -c "npm install && npm run start:dev:docker"
+    depends_on:
+      - db
+    restart: unless-stopped
+  db:
+    image: postgres:16-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: app_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./volumes/pgdata:/var/lib/postgresql/data
+      - ./volumes/database:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    volumes:
+      - ./volumes/pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - db
+    restart: unless-stopped
+#  frontend:
+#   build: ./frontend
+#   container_name: frontend
+#   ports:
+#     - "3000:3000"
+#   environment:
+#     - CHOKIDAR_USEPOLLING=true
+#     - WATCHPACK_POLLING=true
+#   volumes:
+#     - ./frontend:/app
+#     - /app/node_modules
+#   command: npm start
+#   depends_on:
+#     - backend
+#   restart: unless-stopped
+volumes:
+  pgdata:
+  pgadmin_data:
