@@ -1,15 +1,28 @@
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Headers,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserDTO } from './dto/user.dto';
-import { LoginDTO } from './dto/login.dto';
+import { User } from '../../entities/user.entity';
+
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @UseGuards(AuthGuard('local'))
   @Post('login')
-  login(@Body() body: LoginDTO) {
-    return true;
+  login(@Req() req) {
+    return req.user as User;
   }
 
   @Post('register')
@@ -25,5 +38,23 @@ export class AuthController {
     }
 
     return await this.authService.createUser(body);
+  }
+
+  @Get('refresh-credentials')
+  async refreshToken(
+    @Headers('x-refresh-token') refreshToken: string | undefined,
+  ) {
+    if (!refreshToken)
+      throw new BadRequestException('No refresh token provided');
+
+    return await this.authService.refreshTokens(refreshToken);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Delete('logout')
+  async logout(@Req() req) {
+    const user: User = req.user as User;
+
+    return await this.authService.logout(user);
   }
 }
