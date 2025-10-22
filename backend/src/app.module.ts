@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 
 import { AuthModule } from './modules/auth/auth.module';
 import { AppController } from './app.controller';
@@ -13,6 +14,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       port: 5432,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
     AuthModule,
   ],
