@@ -1,3 +1,4 @@
+import { Optional } from '@nestjs/common';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('auths')
@@ -6,9 +7,11 @@ export class Auth {
   id: number;
 
   @Column()
-  authToken: string;
+  @Optional()
+  accessToken: string;
 
   @Column()
+  @Optional()
   refreshToken: string;
 
   @Column()
