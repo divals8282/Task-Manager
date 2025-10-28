@@ -11,6 +11,7 @@ async function bootstrap() {
       forbidNonWhitelisted: true, // throws error if extra properties sent
       transform: true, // automatically converts plain object to DTO class instance
       forbidUnknownValues: true,
+      skipMissingProperties: true,
       exceptionFactory: (errors) => {
         const formattedErrors = {};
 
