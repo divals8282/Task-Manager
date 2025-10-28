@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Task } from './task.entity';
 
 @Entity('item-lists')
 export class ItemList {
@@ -13,4 +14,7 @@ export class ItemList {
 
   @Column({ nullable: true })
   position?: number;
+
+  @OneToMany(() => Task, (task) => task.itemList, { nullable: true })
+  tasks: Task[];
 }
