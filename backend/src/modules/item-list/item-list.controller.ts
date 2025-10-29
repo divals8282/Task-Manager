@@ -30,9 +30,6 @@ export class ItemListController {
 
   @Post('ce-item-list')
   async CEItem(@Body() body: ItemListDTO) {
-    console.log({
-      body,
-    });
     return this.itemListService.CEItemList(body);
   }
 

@@ -25,6 +25,5 @@ export class Epic {
   user: User;
 
   @OneToMany(() => Story, (story) => story.id)
-  @JoinColumn()
   stories: Story[];
 }

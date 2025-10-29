@@ -4,7 +4,6 @@ import {
   Column,
   JoinColumn,
   ManyToOne,
-  OneToOne,
 } from 'typeorm';
 import { Story } from './story.entity';
 import { User } from './user.entity';
@@ -21,7 +20,7 @@ export class Task {
   @Column()
   description: string;
 
-  @OneToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User, (user) => user.id)
   @JoinColumn()
   user: User;
 

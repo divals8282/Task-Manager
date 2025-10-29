@@ -58,5 +58,6 @@ services:
 #     - backend
 #   restart: unless-stopped
 volumes:
+  database:
   pgdata:
   pgadmin_data:

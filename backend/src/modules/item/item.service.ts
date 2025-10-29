@@ -35,6 +35,17 @@ export class ItemService {
     }
   }
 
+  private setFetchItemsRelationsByEntity(entity: ItemEntity) {
+    switch (entity) {
+      case ItemEntity.TASK:
+        return ['itemList', 'story'];
+      case ItemEntity.STORY:
+        return ['epic'];
+      case ItemEntity.EPIC:
+        return [];
+    }
+  }
+
   fetchItemById(entity: ItemEntity, id: number) {
     return this.getRepositoryByEntity(entity).findOne({ where: { id } });
   }
@@ -44,7 +55,7 @@ export class ItemService {
       skip: offset || 0,
       take: limit || 10,
       order: { id: 'DESC' },
-      relations: ['user'],
+      relations: ['user', ...this.setFetchItemsRelationsByEntity(entity)],
     });
   }
 
