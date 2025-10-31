@@ -14,6 +14,7 @@ import { UserDTO } from './dto/user.dto';
 import { User } from '../../entities/user.entity';
 
 import { AuthGuard } from '@nestjs/passport';
+import { RequestedUser } from '../../decorators/user.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -56,5 +57,11 @@ export class AuthController {
     const user: User = req.user as User;
 
     return await this.authService.logout(user);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('user-info')
+  userInfo(@RequestedUser() user: User) {
+    return user;
   }
 }
