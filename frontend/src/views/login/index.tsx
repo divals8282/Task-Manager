@@ -59,7 +59,7 @@ export const LoginView = () => {
 
       userStore.changeStatus("Authorized");
 
-      navigate("/dashboard");
+      navigate("/board");
     } catch (error) {
       if (axios.isAxiosError<LoginErrorResponseI>(error)) {
         toast.error(

@@ -3,10 +3,27 @@ import "./styles.app.scss";
 import { Outlet, useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/zustand-stores/user";
+import { useEffect } from "react";
+import { getUserInfo } from "./server/user-info";
 
 function App() {
   const navigate = useNavigate();
   const userStore = useUserStore();
+
+  const getAndSetUserInfo = async () => {
+    const userInfo = await getUserInfo().catch(() => {
+      navigate("/login");
+    });
+
+    if (userInfo) {
+      userStore.setUserInfo(userInfo);
+      userStore.changeStatus("Authorized");
+    }
+  };
+
+  useEffect(() => {
+    getAndSetUserInfo();
+  }, []);
 
   const logoutAction = () => {
     userStore.changeStatus("Not-Authorized");
