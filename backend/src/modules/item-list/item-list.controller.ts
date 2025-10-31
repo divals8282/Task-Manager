@@ -23,7 +23,7 @@ export class ItemListController {
 
     return {
       data,
-      status: 200,
+      statusCode: 200,
       message: `Item list fetched successfully`,
     };
   }

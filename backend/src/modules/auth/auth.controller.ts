@@ -32,7 +32,7 @@ export class AuthController {
     if (userExists) {
       throw new BadRequestException({
         success: false,
-        status: 400,
+        statusCode: 400,
         message: 'User with this email already exists',
       });
     }

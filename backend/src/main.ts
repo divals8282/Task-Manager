@@ -3,8 +3,7 @@ import { AppModule } from './app.module';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-
+  const app = await NestFactory.create(AppModule, { cors: true });
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true, // removes properties not in DTO
@@ -20,8 +19,8 @@ async function bootstrap() {
         });
 
         return new BadRequestException({
-          status: 'error',
-          code: 400,
+          message: 'error',
+          statusCode: 400,
           errors: formattedErrors,
         });
       },

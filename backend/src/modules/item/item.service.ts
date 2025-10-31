@@ -75,7 +75,7 @@ export class ItemService {
       if (existingItem && existingItem.user.id !== author.id) {
         throw new UnauthorizedException({
           data: null,
-          status: 401,
+          statusCode: 401,
           message: 'You are not authorized to update this item.',
         });
       }
@@ -93,7 +93,7 @@ export class ItemService {
     if (!item) {
       throw new NotFoundException({
         data: null,
-        status: 404,
+        statusCode: 404,
         message: 'Item not found.',
       });
     }
@@ -101,7 +101,7 @@ export class ItemService {
     if (item.user.id !== author.id) {
       throw new UnauthorizedException({
         data: null,
-        status: 401,
+        statusCode: 401,
         message: 'You are not authorized to update this item.',
       });
     }

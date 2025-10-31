@@ -30,13 +30,13 @@ export class ItemController {
     if (item) {
       return {
         data: item,
-        status: 200,
+        statusCode: 200,
         message: `${entity} fetched successfully`,
       };
     }
 
     throw new NotFoundException({
-      status: 404,
+      statusCode: 404,
       message: `${entity} not found`,
     });
   }
@@ -59,7 +59,7 @@ export class ItemController {
     return {
       total,
       data,
-      status: 200,
+      statusCode: 200,
       message: `${entity} fetched successfully`,
     };
   }

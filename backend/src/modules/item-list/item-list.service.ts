@@ -28,7 +28,7 @@ export class ItemListService {
     if (!itemList) {
       throw new NotFoundException({
         data: null,
-        status: 404,
+        statusCode: 404,
         message: 'Item not found.',
       });
     }

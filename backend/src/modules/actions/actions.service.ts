@@ -29,7 +29,7 @@ export class ActionsService {
     if (!currentTask) {
       throw new NotFoundException({
         message: 'Task not found',
-        status: 404,
+        statusCode: 404,
       });
     }
 
@@ -40,7 +40,7 @@ export class ActionsService {
     if (!newList) {
       throw new NotFoundException({
         message: 'List not found',
-        status: 404,
+        statusCode: 404,
       });
     }
 
@@ -62,14 +62,14 @@ export class ActionsService {
     if (!task) {
       throw new NotFoundException({
         message: 'Task not found',
-        status: 404,
+        statusCode: 404,
       });
     }
 
     if (!story) {
       throw new NotFoundException({
         message: 'Story not found',
-        status: 404,
+        statusCode: 404,
       });
     }
 
@@ -91,14 +91,14 @@ export class ActionsService {
     if (!story) {
       throw new NotFoundException({
         message: 'Story not found',
-        status: 404,
+        statusCode: 404,
       });
     }
 
     if (!epic) {
       throw new NotFoundException({
         message: 'Epic not found',
-        status: 404,
+        statusCode: 404,
       });
     }
 
