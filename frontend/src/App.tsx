@@ -20,7 +20,7 @@ function App() {
           </Button>
         </div>
         <div className="app__sidebar__navigation">
-          <Button onClick={() => navigate("/dashboard")}>DashBoard</Button>
+          <Button onClick={() => navigate("/board")}>Board</Button>
           <Button onClick={() => navigate("/epics")}>Epics</Button>
           <Button onClick={() => navigate("/stories")}>Stories</Button>
           <Button onClick={() => navigate("/tasks")}>Tasks</Button>
