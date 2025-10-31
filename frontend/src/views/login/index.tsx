@@ -2,13 +2,13 @@ import "./styles.scss";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
+import { toast } from "sonner";
 export const LoginView = () => {
   return (
     <div className="login-view">
       <div className="login-view__box">
         <div className="login-view__box__controller">
-          <h1>Login</h1>
+          <h1 onClick={() => toast("New Message")}>Login</h1>
         </div>
         <div className="login-view__box__controller">
           <label htmlFor="email" className="login-view__box__input--label">
