@@ -11,8 +11,10 @@ import { formatFormErrorsToMessage } from "@/utils/format-form-errors-to-message
 import { loginServer, type LoginErrorResponseI } from "./login.server";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { useUserStore } from "@/zustand-stores/user";
 
 export const LoginView = () => {
+  const userStore = useUserStore();
   const navigate = useNavigate();
   const {
     register,
@@ -35,6 +37,9 @@ export const LoginView = () => {
     try {
       const {
         data: {
+          email,
+          lastname,
+          name,
           auth: { accessToken, refreshToken },
         },
       } = await loginServer(data);
@@ -45,6 +50,14 @@ export const LoginView = () => {
         "credentials",
         JSON.stringify({ accessToken, refreshToken })
       );
+
+      userStore.setUserInfo({
+        email,
+        lastname,
+        name,
+      });
+
+      userStore.changeStatus("Authorized");
 
       navigate("/dashboard");
     } catch (error) {

@@ -2,9 +2,17 @@ import "./styles.app.scss";
 
 import { Outlet, useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
+import { useUserStore } from "@/zustand-stores/user";
 
 function App() {
   const navigate = useNavigate();
+  const userStore = useUserStore();
+
+  const logoutAction = () => {
+    userStore.changeStatus("Not-Authorized");
+    navigate("/login");
+  };
+
   return (
     <div className="app">
       <div className="app__sidebar">
@@ -12,12 +20,23 @@ function App() {
           <p>TASK MANAGER</p>
         </div>
         <div className="app__sidebar__profile">
-          <Button variant={"default"} onClick={() => navigate("/login")}>
-            Login
-          </Button>
-          <Button variant={"default"} onClick={() => navigate("/register")}>
-            Register
-          </Button>
+          {userStore.status === "Authorized" ? (
+            <>
+              <div className="app__sidebar__profile--name">
+                {userStore.email}
+              </div>
+              <Button onClick={() => logoutAction()}>Logout</Button>
+            </>
+          ) : (
+            <>
+              <Button variant={"default"} onClick={() => navigate("/login")}>
+                Login
+              </Button>
+              <Button variant={"default"} onClick={() => navigate("/register")}>
+                Register
+              </Button>
+            </>
+          )}
         </div>
         <div className="app__sidebar__navigation">
           <Button onClick={() => navigate("/board")}>Board</Button>
