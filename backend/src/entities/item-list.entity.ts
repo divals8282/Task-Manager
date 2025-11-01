@@ -12,8 +12,8 @@ export class ItemList {
   @Column()
   description: string;
 
-  @Column({ nullable: true })
-  position?: number;
+  @Column()
+  position: number;
 
   @OneToMany(() => Task, (task) => task.itemList, { nullable: true })
   tasks: Task[];

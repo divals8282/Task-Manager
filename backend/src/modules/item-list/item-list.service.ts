@@ -17,6 +17,60 @@ export class ItemListService {
 
   async CEItemList(data: ItemListDTO) {
     const itemList = this.itemListRepository.create(data);
+
+    if (!data.id) {
+      const count = await this.itemListRepository.count();
+      const itemList = this.itemListRepository.create({
+        ...data,
+        position: count + 1,
+      });
+      return this.itemListRepository.save(itemList);
+    }
+
+    const itemListInDB = await this.itemListRepository.findOne({
+      where: { id: data.id },
+    });
+
+    if (!itemListInDB) {
+      throw new Error('ItemList not found');
+    }
+
+    // If position changed → reorder others
+    if (data.position && data.position !== itemListInDB.position) {
+      const newPosition = data.position;
+      const oldPosition = itemListInDB.position;
+
+      if (newPosition > oldPosition) {
+        // Moving down → shift up items between old+1 and new
+        await this.itemListRepository
+          .createQueryBuilder()
+          .update()
+          .set({ position: () => `"position" - 1` })
+          .where(`"position" > :oldPosition AND "position" <= :newPosition`, {
+            oldPosition,
+            newPosition,
+          })
+          .execute();
+      } else {
+        // Moving up → shift down items between new and old-1
+        await this.itemListRepository
+          .createQueryBuilder()
+          .update()
+          .set({ position: () => `"position" + 1` })
+          .where(`"position" >= :newPosition AND "position" < :oldPosition`, {
+            oldPosition,
+            newPosition,
+          })
+          .execute();
+      }
+
+      // Update the item’s own position
+      itemListInDB.position = newPosition;
+    }
+
+    // Update other fields if needed
+    Object.assign(itemListInDB, data);
+
     return await this.itemListRepository.save(itemList);
   }
 
