@@ -23,11 +23,14 @@ function App() {
 
   useEffect(() => {
     getAndSetUserInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const logoutAction = () => {
-    userStore.changeStatus("Not-Authorized");
-    navigate("/login");
+    if (window.confirm("Are you sure?")) {
+      userStore.changeStatus("Not-Authorized");
+      navigate("/login");
+    }
   };
 
   return (
@@ -55,12 +58,14 @@ function App() {
             </>
           )}
         </div>
-        <div className="app__sidebar__navigation">
-          <Button onClick={() => navigate("/board")}>Board</Button>
-          <Button onClick={() => navigate("/epics")}>Epics</Button>
-          <Button onClick={() => navigate("/stories")}>Stories</Button>
-          <Button onClick={() => navigate("/tasks")}>Tasks</Button>
-        </div>
+        {userStore.status === "Authorized" ? (
+          <div className="app__sidebar__navigation">
+            <Button onClick={() => navigate("/board")}>Board</Button>
+            <Button onClick={() => navigate("/epics")}>Epics</Button>
+            <Button onClick={() => navigate("/stories")}>Stories</Button>
+            <Button onClick={() => navigate("/tasks")}>Tasks</Button>
+          </div>
+        ) : null}
       </div>
       <div className="app__content">
         <Outlet />

@@ -12,3 +12,14 @@
     }
   }
 }
+
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  &__box {
+    label {
+      font-size: 1rem;
+    }
+  }
+}

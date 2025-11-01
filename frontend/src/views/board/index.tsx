@@ -84,15 +84,15 @@ export const BoardView = () => {
       <TaskDialog
         data={dialog.task.data}
         isOpen={dialog.task.open}
-        onChange={(data) =>
-          setDialog({ ...dialog, task: { ...dialog.task, data: data } })
+        onChange={(data, open) =>
+          setDialog({ ...dialog, task: { open, data: data } })
         }
       />
       <ListDialog
         data={dialog.list.data}
         isOpen={dialog.list.open}
-        onChange={(data) =>
-          setDialog({ ...dialog, list: { ...dialog.list, data: data } })
+        onChange={(data, open) =>
+          setDialog({ ...dialog, list: { open, data: data } })
         }
       />
     </div>

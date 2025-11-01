@@ -1,3 +1,5 @@
+import type { UserInfoI } from "../types";
+
 export type ItemTypeT = "Task" | "Story" | "Epic";
 export interface ItemI {
   id?: number;
@@ -21,4 +23,8 @@ export interface GetOneItemResponseBodyI {
 export interface GetOneItemNotFoundResponseBodyI {
   statusCode: number;
   message: string;
+}
+
+export interface CEItemResponseBodyI extends ItemI {
+  user: UserInfoI;
 }
