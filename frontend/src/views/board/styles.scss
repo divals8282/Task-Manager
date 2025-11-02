@@ -2,6 +2,7 @@
   &__header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     &--title {
       font-size: 2rem;
       font-weight: bold;
@@ -9,6 +10,23 @@
     &--actions {
       display: flex;
       gap: 10px;
+    }
+  }
+  &__body {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: auto;
+    gap: 50px;
+    padding-top: 60px;
+    &__list {
+      flex: 0 0 300px;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 10px;
+      padding: 10px;
+      &--title {
+        cursor: grab;
+      }
     }
   }
 }

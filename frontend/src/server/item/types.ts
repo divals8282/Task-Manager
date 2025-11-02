@@ -1,15 +1,23 @@
+import type { ItemListI } from "../list/types";
 import type { UserInfoI } from "../types";
 
 export type ItemTypeT = "Task" | "Story" | "Epic";
+
 export interface ItemI {
   id?: number;
   name: string;
   description: string;
 }
 
+export interface ItemTaskI extends ItemI {
+  itemList: ItemListI | null;
+  story: ItemI;
+  user: UserInfoI;
+}
+
 export interface GetItemsResponseBodyI {
   total: number;
-  data: ItemI[];
+  data: ItemTaskI[] | ItemI[];
   statusCode: number;
   message: string;
 }
