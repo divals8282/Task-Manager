@@ -10,9 +10,9 @@ export interface ItemI {
 }
 
 export interface ItemTaskI extends ItemI {
-  itemList: ItemListI | null;
-  story: ItemI;
-  user: UserInfoI;
+  itemList?: ItemListI | null;
+  story?: ItemI;
+  user?: UserInfoI;
 }
 
 export interface GetItemsResponseBodyI {

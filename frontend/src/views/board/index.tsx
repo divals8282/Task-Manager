@@ -35,10 +35,12 @@ const SortableItemList = ({
   id,
   name,
   tasks,
+  onTaskRequestToEdit,
 }: {
   tasks: ItemTaskI[];
   id: number;
   name: string;
+  onTaskRequestToEdit: (task: ItemTaskI) => void;
 }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: id });
@@ -66,7 +68,11 @@ const SortableItemList = ({
         {tasks
           .filter((task) => task.itemList && task.itemList.id === id)
           .map((task) => (
-            <div className="board-view__body__list__tasks--item" key={task.id}>
+            <div
+              onClick={() => onTaskRequestToEdit(task)}
+              className="board-view__body__list__tasks--item"
+              key={task.id}
+            >
               {task.name}
             </div>
           ))}
@@ -193,6 +199,15 @@ export const BoardView = () => {
                     name={list.name}
                     tasks={tasks}
                     key={list.id}
+                    onTaskRequestToEdit={(task) =>
+                      setDialog({
+                        ...dialog,
+                        task: {
+                          open: true,
+                          data: task,
+                        },
+                      })
+                    }
                   />
                 );
               })}
@@ -201,10 +216,15 @@ export const BoardView = () => {
       </div>
       <TaskDialog
         data={dialog.task.data}
+        itemLists={itemLists}
         isOpen={dialog.task.open}
-        onChange={(data, open) =>
-          setDialog({ ...dialog, task: { open, data: data } })
+        onChange={(data) =>
+          setDialog({ ...dialog, task: { ...dialog.task, data: data } })
         }
+        onDialogRequestToClose={() => {
+          setDialog({ ...dialog, task: { ...dialog.task, open: false } });
+          getServerData();
+        }}
       />
       <ListDialog
         data={dialog.list.data}

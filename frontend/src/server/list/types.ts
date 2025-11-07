@@ -2,12 +2,12 @@ export interface CEItemListRequestBodyI {
   id?: number;
   name: string;
   description: string;
-  position: number;
+  position?: number;
 }
 
 export interface ItemListI
   extends Required<
-    Pick<CEItemListRequestBodyI, "id" | "description" | "name" | "position">
+    Pick<CEItemListRequestBodyI, "id" | "description" | "name">
   > {
   position: number;
 }
