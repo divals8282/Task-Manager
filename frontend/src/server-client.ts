@@ -1,4 +1,5 @@
 import axios, { AxiosError, type AxiosRequestConfig, type AxiosResponse } from "axios";
+import { navigate } from "./navigator.outside";
 
 const CREDENTIALS_REQUIRED_ENDPOINTS = [
   "/auth/logout",
@@ -49,6 +50,7 @@ client.interceptors.request.use(
     if (isCredentialRequired) {
       const credentials = getCredentials();
       if (!credentials) {
+        navigate('/login');
         throw new Error("No credentials in storage, need to log in");
       }
       config.headers["Authorization"] = `Bearer ${credentials.accessToken}`;
