@@ -5,15 +5,14 @@ import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/zustand-stores/user";
 import { useEffect } from "react";
 import { getUserInfo } from "./server/user-info";
+import { setNavigate } from "./navigator.outside";
 
 function App() {
   const navigate = useNavigate();
   const userStore = useUserStore();
 
   const getAndSetUserInfo = async () => {
-    const userInfo = await getUserInfo().catch(() => {
-      navigate("/login");
-    });
+    const userInfo = await getUserInfo();
 
     if (userInfo) {
       userStore.setUserInfo(userInfo);
@@ -22,6 +21,7 @@ function App() {
   };
 
   useEffect(() => {
+    setNavigate(navigate);
     getAndSetUserInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -29,6 +29,7 @@ function App() {
   const logoutAction = () => {
     if (window.confirm("Are you sure?")) {
       userStore.changeStatus("Not-Authorized");
+      localStorage.removeItem('credentials');
       navigate("/login");
     }
   };
