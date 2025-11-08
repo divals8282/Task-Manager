@@ -229,9 +229,16 @@ export const BoardView = () => {
       <ListDialog
         data={dialog.list.data}
         isOpen={dialog.list.open}
-        onChange={(data, open) =>
-          setDialog({ ...dialog, list: { open, data: data } })
+        onChange={(data) =>
+          setDialog({ ...dialog, list: { open: dialog.list.open, data: data } })
         }
+        onDialogRequestToClose={() => {
+          setDialog({
+            ...dialog,
+            list: { open: false, data: dialog.list.data },
+          });
+          getServerData();
+        }}
       />
     </div>
   );

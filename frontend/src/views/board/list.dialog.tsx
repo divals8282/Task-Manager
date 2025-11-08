@@ -10,7 +10,12 @@ import { CEItemListServer } from "@/server/list/ce-item-list";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-export const ListDialog: ComponentT = ({ data, isOpen, onChange }) => {
+export const ListDialog: ComponentT = ({
+  data,
+  isOpen,
+  onChange,
+  onDialogRequestToClose,
+}) => {
   const onFormSubmitAction: React.FormEventHandler<HTMLFormElement> = async (
     e
   ) => {
@@ -21,17 +26,16 @@ export const ListDialog: ComponentT = ({ data, isOpen, onChange }) => {
     console.debug("created/edited-item-list: ", response.data);
     toast.success(`Item List succesfully ${data.id ? "edited" : "created"}`);
 
-    onChange(
-      {
-        ...response.data,
-        id: undefined,
-      },
-      false
-    );
+    onChange({
+      ...response.data,
+      id: undefined,
+    });
+
+    onDialogRequestToClose();
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => onChange(data, open)}>
+    <Dialog open={isOpen} onOpenChange={() => onDialogRequestToClose()}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
@@ -44,9 +48,7 @@ export const ListDialog: ComponentT = ({ data, isOpen, onChange }) => {
             <Input
               id="name"
               value={data.name}
-              onChange={(e) =>
-                onChange({ ...data, name: e.target.value }, true)
-              }
+              onChange={(e) => onChange({ ...data, name: e.target.value })}
             />
           </div>
           <div className="dialog-form__box">
@@ -55,7 +57,7 @@ export const ListDialog: ComponentT = ({ data, isOpen, onChange }) => {
               id="description"
               value={data.description}
               onChange={(e) =>
-                onChange({ ...data, description: e.target.value }, true)
+                onChange({ ...data, description: e.target.value })
               }
             />
           </div>
