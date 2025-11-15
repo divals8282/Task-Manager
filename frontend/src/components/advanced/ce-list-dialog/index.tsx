@@ -1,10 +1,11 @@
+import "./styles.scss";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import type { ComponentT } from "./types/list.dialog";
+import type { ComponentT } from "./types";
 import { toast } from "sonner";
 import { CEItemListServer } from "@/server/list/ce-item-list";
 import { Input } from "@/components/ui/input";

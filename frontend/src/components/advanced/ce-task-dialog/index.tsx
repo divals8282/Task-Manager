@@ -1,10 +1,11 @@
+import "./styles.scss";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import type { ComponentT } from "./types/task.dialog";
+import type { ComponentT } from "./types";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { CEItemServer } from "@/server/item/ce-item";

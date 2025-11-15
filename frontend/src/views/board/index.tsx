@@ -20,8 +20,8 @@ import { restrictToHorizontalAxis } from "@dnd-kit/modifiers";
 import { CSS } from "@dnd-kit/utilities";
 
 import { Button } from "@/components/ui/button";
-import { TaskDialog } from "./task.dialog";
-import { ListDialog } from "./list.dialog";
+import { TaskDialog } from "@/components/advanced/ce-task-dialog";
+import { ListDialog } from "@/components/advanced/ce-list-dialog";
 import { getItemListServer } from "@/server/list/get-item-list";
 import {
   type CEItemListRequestBodyI,

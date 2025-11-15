@@ -1,4 +1,4 @@
-import type { ComponentT } from "./story-dialog.types";
+import type { ComponentT } from "./types";
 import type { ItemI } from "@/server/item/types";
 
 import { Input } from "@/components/ui/input";
@@ -14,8 +14,8 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
+  SelectTrigger,
 } from "@/components/ui/select";
-import { SelectTrigger } from "@radix-ui/react-select";
 
 export const StoryDialog: ComponentT = (props) => {
   const { data, isOpen, onDialogRequestToClose, onDataChange } = props;
@@ -73,7 +73,7 @@ export const StoryDialog: ComponentT = (props) => {
               />
             </div>
             <div className="story-dialog__form__box">
-              <label>Epic</label>
+              <label>Epic (Optional)</label>
               <Select
                 value={String(data.epic?.id)}
                 onValueChange={(value) =>
@@ -83,8 +83,8 @@ export const StoryDialog: ComponentT = (props) => {
                   })
                 }
               >
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Select a fruit" />
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select Epic" />
                 </SelectTrigger>
                 <SelectContent>
                   {epics.map((epic) => (

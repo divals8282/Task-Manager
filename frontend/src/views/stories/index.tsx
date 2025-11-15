@@ -1,10 +1,9 @@
 import "./styles.scss";
+import { useEffect, useState } from "react";
 import { type ItemStoryI } from "@/server/item/types";
-
 import { Button } from "@/components/ui/button";
 import { getItemsServer } from "@/server/item/get-items";
-import { useEffect, useState } from "react";
-import { StoryDialog } from "./story-dialog";
+import { StoryDialog } from "@/components/advanced/ce-story-dialog";
 
 export const StoriesView = () => {
   const [storyDialog, setStoryDialog] = useState<{
