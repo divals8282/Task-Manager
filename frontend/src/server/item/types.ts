@@ -9,6 +9,10 @@ export interface ItemI {
   description: string;
 }
 
+export interface ItemStoryI extends ItemI {
+  epic?: ItemI;
+}
+
 export interface ItemTaskI extends ItemI {
   itemList?: ItemListI | null;
   story?: ItemI;
@@ -17,7 +21,7 @@ export interface ItemTaskI extends ItemI {
 
 export interface GetItemsResponseBodyI {
   total: number;
-  data: ItemTaskI[] | ItemI[];
+  data: ItemTaskI[] | ItemStoryI[] | ItemI[];
   statusCode: number;
   message: string;
 }

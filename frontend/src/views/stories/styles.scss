@@ -1,0 +1,40 @@
+.stories-view {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &--title {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    &--actions {
+      display: flex;
+      gap: 10px;
+    }
+  }
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    &__story {
+      cursor: pointer;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 10px;
+      padding: 10px;
+    }
+  }
+}
+
+.story-dialog {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    &__box {
+      label {
+        font-size: 1rem;
+      }
+    }
+  }
+}
